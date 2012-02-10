@@ -18,7 +18,7 @@ To add a progress bar to a post or a page, simply use this shortcode:
 
 where "50" in the example above is a progress bar that is 50% complete.  Simple, lightweight, cross-browser compatible (degrades nicely for browsers that don\'t support CSS3).
 
-You can also apply 2 effects to the progress by applying "options".  The accepted parameters are 'candystripe' and 'animated-candystripe'.  For demos of each, go here: http://museumthemes.com/progress-bar-demo/  To use the options, use these shortcodes:
+You can also apply 2 effects to the progress by applying "options".  The accepted parameters are 'candystripe' and 'animated-candystripe'.  For demos of each, go here: http://museumthemes.com/progress-bar/  To use the options, use these shortcodes:
 
 `[wppb progress=50 option=candystripe]`
 
