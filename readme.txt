@@ -24,8 +24,6 @@ For demos of each of the options, go here: http://museumthemes.com/progress-bar/
 
 **Examples**
 
-`[wppb progress=50]
-
 `[wppb progress=50 option=candystripe]`
 
 `[wppb progress=50 option=animated-candystripe]`
