@@ -68,6 +68,16 @@ div.wppb-progress > span {
 	overflow: hidden;
 	position: relative;
 }
+/* red */
+div.wppb-progress > span.red {
+	background: #d10418; /* Old browsers */
+	background: -moz-linear-gradient(top, #d10418 0%, #6d0019 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#d10418), color-stop(100%,#6d0019)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #d10418 0%,#6d0019 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #d10418 0%,#6d0019 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #d10418 0%,#6d0019 100%); /* IE10+ */
+	background: linear-gradient(top, #d10418 0%,#6d0019 100%); /* W3C */
+}
 
 /* candystripes */
 div.wppb-progress > span.candystripes:after, div.wppb-progress > span.animated-candystripes > span {
@@ -159,9 +169,11 @@ div.wppb-progress > span.candystripes:after, div.wppb-progress > span.animated-c
 		    }
 		}
 
-/* animate */
+/* after */
+div.wppb-wrapper.after { width: 440px; }
+div.wppb-wrapper.after div.wppb-progress { float: left; }
+div.wppb-wrapper.after div.after { float: right; line-height: 25px; }
 
-	@-webkit-animation expandWidth {
-	   0% { width: 0; }
-	   100% { width: auto; }
-	}
+/* inside */
+div.wppb-wrapper.inside { width: 400px; height: 25px; position: relative; }
+div.wppb-wrapper div.inside { margin: 0 auto; line-height: 25px; color: #ffffff; font-weight: bold; position: absolute; z-index: 1; width: 400px; text-align: center; }
