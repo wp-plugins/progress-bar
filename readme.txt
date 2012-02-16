@@ -80,7 +80,7 @@ div.wppb-wrapper div.inside { margin: 0 auto; line-height: 25px; color: #ffffff;
 
 == Changelog ==
 
-** 1.0.2**
+**1.0.2**
 
 *	fixes it so either 'candystripe' (singular) or 'candystripes' (plural) works for candystripes (documentation said singular, code said plural) -- resolves: http://wordpress.org/support/topic/plugin-progress-bar-wheres-the-canystripe (thanks to dgodfather for pointing this out)
 
