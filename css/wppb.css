@@ -80,7 +80,7 @@ div.wppb-progress > span.red {
 }
 
 /* candystripes */
-div.wppb-progress > span.candystripes:after, div.wppb-progress > span.animated-candystripes > span {
+div.wppb-progress > span.candystripes:after, div.wppb-progress > span.animated-candystripes > span, div.wppb-progress > span.candystripe:after, div.wppb-progress > span.animated-candystripe > span {
 	content: "";
 	position: absolute;
 	top: 0; left: 0; bottom: 0; right: 0;
@@ -147,7 +147,7 @@ div.wppb-progress > span.candystripes:after, div.wppb-progress > span.animated-c
 }
 
 /* animated candystripes */
-.animated-candystripes > span:after {
+.animated-candystripes > span:after, .animated-candystripe > span:after {
 			display: none;
 		}
 
