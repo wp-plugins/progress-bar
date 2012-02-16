@@ -4,7 +4,7 @@ Donate link:https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id
 Tags: progress bar, css3, progress, shortcode
 Requires at least: 2.8
 Tested up to: 3.3.1
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 
 a simple progress bar shortcode that can be styled with CSS
 
@@ -79,6 +79,10 @@ div.wppb-wrapper.right { width: 400px; height: 25px; position: relative; }
 div.wppb-wrapper div.inside { margin: 0 auto; line-height: 25px; color: #ffffff; font-weight: bold; position: absolute; z-index: 1; width: 400px; text-align: right; padding-right: 10px }`
 
 == Changelog ==
+
+** 1.0.2**
+
+*	fixes it so either 'candystripe' (singular) or 'candystripes' (plural) works for candystripes (documentation said singular, code said plural) -- resolves: http://wordpress.org/support/topic/plugin-progress-bar-wheres-the-canystripe (thanks to dgodfather for pointing this out)
 
 **1.0.1**
 
