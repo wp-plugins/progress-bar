@@ -3,7 +3,7 @@
 Plugin Name: Progress Bar
 Plugin URI: https://github.com/jazzsequence/progress-bar
 Description: a simple progress bar shortcode that can be styled with CSS
-Version: 1.0
+Version: 1.0.1
 Author: Chris Reynolds
 Author URI: http://museumthemes.com
 License: GPL3
@@ -48,21 +48,28 @@ add_action( 'init', 'wppb_init' );
 /**
  * Progress Bar
  * simple shortcode that displays a progress bar
- * syntax: [wppb 50] -- displays a progress bar that is 50% full
  * @author Chris Reynolds
  * @since 0.1
+ * @param string $progress REQUIRED displays the actual progress bar in % | usage [wppb progress=50]
+ * @param string $option OPTIONAL calls various options. These can be user-input (uses CSS classes, so anything a user adds to their CSS could potentially be used as an option) or any of the pre-defined options/styles. Included options (as of 1.0.1): candystripes, animated-candystripes, red | usage [wppb progress=50 option="red candystripes"] [wppb progress=50 option=animated-candystripes]
+ * @param string $percent OPTIONAL displays the percentage either on the bar itself, or after the progress bar, depending on which parameter is used. Options are 'after' and 'inside'. | usage [wppb progress=50 percent=after]
  */
 
 function wppb( $atts ) {
 	extract( shortcode_atts( array(
-		'progress' => '',
-		'option' => ''
+		'progress' => '',	// the progress in %
+		'option' => '',		// what options you want to use (candystripes, animated-candystripes, red)
+		'percent' => ''		// whether you want to display the percentage and where you want that to go (after, inside)
 		), $atts ) );
 	// here's the html output of the progress bar
-	$wppb_output	= "{$wppb_progress}";
+	$wppb_output	= "<div class=\"wppb-wrapper {$percent}\">"; // adding $percent to the wrapper class, so I can set a width for the wrapper based on whether it's using div.wppb-wrapper.after or div.wppb-wrapper.inside or just div.wppb-wrapper
+	if ($atts['percent'] != '') { // if $percent is not empty, add this
+		$wppb_output .= "<div class=\"{$percent}\">{$progress}%</div>";
+	}
 	$wppb_output 	.= 	"<div class=\"wppb-progress\">";
 	$wppb_output 	.=	"	<span style=\"width: {$progress}%;\" class=\"{$option}\"><span></span></span>";
 	$wppb_output	.=	"</div>";
+	$wppb_output	.= "</div>";
 	// now return the progress bar
 	return $wppb_output;
 }
