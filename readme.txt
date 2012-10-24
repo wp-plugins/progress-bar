@@ -3,8 +3,8 @@ Contributors: jazzs3quence
 Donate link:https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=AWM2TG
 Tags: progress bar, css3, progress, shortcode
 Requires at least: 2.8
-Tested up to: 3.3.1
-Stable tag: 1.0.2
+Tested up to: 3.4.2
+Stable tag: 1.0.3
 
 a simple progress bar shortcode that can be styled with CSS
 
@@ -18,7 +18,7 @@ To add a progress bar to a post or a page, simply use this shortcode:
 
 where "50" in the example above is a progress bar that is 50% complete.  Simple, lightweight, cross-browser compatible (degrades nicely for browsers that don\'t support CSS3).
 
-You can also apply 2 effects to the progress bar or change the default color by applying "options".  Accepted parameters are 'candystripe', 'animated-candystripe' and 'red', but you can create your own CSS classes to create new color options or apply different CSS effects.  You can display the percent complete by adding the "percent" parameter to the shortcode.  Accepted values are 'after' and 'inside', but, again, you can create your own CSS classes and extend this functionality to offer 'before' or 'on-top' or whatever you want.
+You can also apply 2 effects to the progress bar or change the default color by applying "options".  Accepted parameters are 'candystripe', 'animated-candystripe' and 'red', but you can create your own CSS classes to create new color options or apply different CSS effects.  You can display the percent complete by adding the "percent" parameter to the shortcode.  Accepted values are 'after' and 'inside', but, again, you can create your own CSS classes and extend this functionality to offer 'before' or 'on-top' or whatever you want. *Update:* Since 1.0.3, you can allow the progress bar to take the full width of the containing div by using the `fullwidth` shortcode variable. Accepted parameter is `true` (or any non-empty value).
 
 For demos of each of the options, go here: http://museumthemes.com/progress-bar/
 
@@ -31,6 +31,8 @@ For demos of each of the options, go here: http://museumthemes.com/progress-bar/
 `[wppb progress=50 option="red candystripe" percent=inside]`
 
 `[wppb progress=50 option=red percent=after]`
+
+`[wppb progress=50 option=red percent=inside fullwidth=true]`
 
 == Installation ==
 
@@ -79,6 +81,10 @@ div.wppb-wrapper.right { width: 400px; height: 25px; position: relative; }
 div.wppb-wrapper div.inside { margin: 0 auto; line-height: 25px; color: #ffffff; font-weight: bold; position: absolute; z-index: 1; width: 400px; text-align: right; padding-right: 10px }`
 
 == Changelog ==
+
+**1.0.3**
+
+*	added fullwidth parameter thanks to [callingmedic911](http://profiles.wordpress.org/callingmedic911/) -- this allows the progress bar to have a variable width based on the width of the containing div (not exactly responsive, as suggested [here](http://wordpress.org/support/topic/responsive-progress-bar?replies=12#post-3291966), but it allows the progress bar to be used in sidebars or to take up the full width of the post content area).
 
 **1.0.2**
 

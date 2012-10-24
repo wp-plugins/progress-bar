@@ -43,6 +43,7 @@ div.wppb-progress {
 	border-radius: 30px;
 	position: relative;
 }
+
 div.wppb-progress > span {
 	display: block;
 	height: 25px;
@@ -177,3 +178,10 @@ div.wppb-wrapper.after div.after { float: right; line-height: 25px; }
 /* inside */
 div.wppb-wrapper.inside { width: 400px; height: 25px; position: relative; }
 div.wppb-wrapper div.inside { margin: 0 auto; line-height: 25px; color: #ffffff; font-weight: bold; position: absolute; z-index: 1; width: 400px; text-align: center; }
+
+/* responsive */
+div.wppb-progress.full,
+div.wppb-wrapper.full,
+div.wppb-wrapper.full div.inside {
+	width: 100%;
+}
