@@ -80,8 +80,48 @@ div.wppb-progress > span.red {
 	background: linear-gradient(top, #d10418 0%,#6d0019 100%); /* W3C */
 }
 
+/* yellow */
+div.wppb-progress > span.yellow {
+	background: #f6e6b4; /* Old browsers */
+	background: -moz-linear-gradient(top,  #f6e6b4 0%, #ed9017 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f6e6b4), color-stop(100%,#ed9017)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #f6e6b4 0%,#ed9017 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #f6e6b4 0%,#ed9017 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #f6e6b4 0%,#ed9017 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #f6e6b4 0%,#ed9017 100%); /* W3C */
+}
+
+/* orange */
+div.wppb-progress > span.orange {
+	background: #ffa84c; /* Old browsers */
+	background: -moz-linear-gradient(top,  #ffa84c 0%, #ff7b0d 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffa84c), color-stop(100%,#ff7b0d)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #ffa84c 0%,#ff7b0d 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #ffa84c 0%,#ff7b0d 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #ffa84c 0%,#ff7b0d 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #ffa84c 0%,#ff7b0d 100%); /* W3C */
+}
+
+/* green */
+div.wppb-progress > span.green {
+	background: #83c783; /* Old browsers */
+	background: -moz-linear-gradient(top,  #83c783 0%, #52b152 33%, #008a00 62%, #005700 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#83c783), color-stop(33%,#52b152), color-stop(62%,#008a00), color-stop(100%,#005700)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #83c783 0%,#52b152 33%,#008a00 62%,#005700 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #83c783 0%,#52b152 33%,#008a00 62%,#005700 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #83c783 0%,#52b152 33%,#008a00 62%,#005700 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #83c783 0%,#52b152 33%,#008a00 62%,#005700 100%); /* W3C */
+}
+
+/* flat color */
+div.wppb-progress > span.flat {
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+}
+
 /* candystripes */
-div.wppb-progress > span.candystripes:after, div.wppb-progress > span.animated-candystripes > span, div.wppb-progress > span.candystripe:after, div.wppb-progress > span.animated-candystripe > span {
+div.wppb-progress > span.candystripes:after, div.wppb-progress > span.candystripe:after, div.wppb-progress > span.animated-candystripe:after, div.wppb-progress > span.animated-candystripes:after {
 	content: "";
 	position: absolute;
 	top: 0; left: 0; bottom: 0; right: 0;
@@ -140,7 +180,6 @@ div.wppb-progress > span.candystripes:after, div.wppb-progress > span.animated-c
 	z-index: 1;
 	-webkit-background-size: 50px 50px;
 	-moz-background-size: 50px 50px;
-	-webkit-animation: move 2s linear infinite;
 	-moz-border-radius: 25px;
 	-o-border-radius: 25px;
 	border-radius: 25px;
@@ -148,6 +187,10 @@ div.wppb-progress > span.candystripes:after, div.wppb-progress > span.animated-c
 }
 
 /* animated candystripes */
+div.wppb-progress > span.animated-candystripe:after, div.wppb-progress > span.animated-candystripes:after {
+	-webkit-animation: move 2s linear infinite;
+}
+
 .animated-candystripes > span:after, .animated-candystripe > span:after {
 			display: none;
 		}

@@ -3,14 +3,14 @@ Contributors: jazzs3quence
 Donate link:https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=AWM2TG
 Tags: progress bar, css3, progress, shortcode
 Requires at least: 2.8
-Tested up to: 3.5
-Stable tag: 1.0.4
+Tested up to: 3.6
+Stable tag: 1.1
 
 a simple progress bar shortcode that can be styled with CSS
 
 == Description ==
 
-This plugin does one thing: it creates a simple (but nice-looking) CSS3 progress bar that you can style with your own CSS and use wherever you want with a simple shortcode.
+This plugin does one thing: it creates a simple (but nice-looking) CSS3 progress bar that you can style with your own CSS and use wherever you want with a simple shortcode. Now with support for custom colors and gradients.
 
 To add a progress bar to a post or a page, simply use this shortcode:
 
@@ -18,25 +18,14 @@ To add a progress bar to a post or a page, simply use this shortcode:
 
 where "50" in the example above is a progress bar that is 50% complete.  Simple, lightweight, cross-browser compatible (degrades nicely for browsers that don\'t support CSS3).
 
-You can also apply 2 effects to the progress bar or change the default color by applying "options".  Accepted parameters are 'candystripe', 'animated-candystripe' and 'red', but you can create your own CSS classes to create new color options or apply different CSS effects.  You can display the percent complete by adding the "percent" parameter to the shortcode.  Accepted values are 'after' and 'inside', but, again, you can create your own CSS classes and extend this functionality to offer 'before' or 'on-top' or whatever you want.
+For more examples and full descriptions of all the available options, click on the [options tab](http://wordpress.org/support/plugin/progress-bar/options/).
 
 For demos of each of the options, go here: http://museumthemes.com/progress-bar/
-
-**Examples**
-
-`[wppb progress=50 option=candystripe]`
-
-`[wppb progress=50 option=animated-candystripe]`
-
-`[wppb progress=50 option="red candystripe" percent=inside]`
-
-`[wppb progress=50 option=red percent=after]`
-
-`[wppb progress="50/100"]`
 
 == Installation ==
 
 Extract the zip file and just drop the contents in the wp-content/plugins/ directory of your WordPress installation and then activate the Plugin from Plugins page.
+
 
 == Frequently Asked Questions ==
 
@@ -80,7 +69,135 @@ Position these however you want.  If you wanted the percentage to be inside the 
 div.wppb-wrapper.right { width: 400px; height: 25px; position: relative; }
 div.wppb-wrapper div.inside { margin: 0 auto; line-height: 25px; color: #ffffff; font-weight: bold; position: absolute; z-index: 1; width: 400px; text-align: right; padding-right: 10px }`
 
+== Options ==
+
+This page describes all the available parameters for the shortcode. These can be used in any combination. The only **required** parameter is  **progress**. All parameters are case-sensitive (e.g. "progress" will work but "Progress" will not).
+
+= progress (required) =
+
+This determines how full the progress bar will be. Progress can be in 2 forms, either a number (0-100), in which case it will be interpreted as a percentage, or as a fraction (e.g. 25/100). Since 1.1, you can also use dollar signs (e.g. $63/$180), for example to create a fundraising progress bar. If using dollar signs, you only *need* to add a dollar sign to one or the other of the two values (e.g. 63/$180 or $63/180) -- the plugin will output either option the same ($63/$180). Your progress can go over, too (e.g. 150/100 or 123%), but your mileage may vary for the display. It's not recommended to use this with the **fullwidth** option, for example, because your progress will spill outside of your main body container.
+
+*Examples*
+
+`[wppb progress=50]` A progress bar that is 50% complete
+
+`[wppb progress="50/100"]` A progress bar that is 50/100 complete
+
+`[wppb progress="$45/$50"]` A dollar value progress bar that is $45/$50 complete
+
+`[wppb progress=110]` A progress bar that has gone over 100%
+
+`[wppb progress=150/100]` A progress bar that has exceeded its goal
+
+`[wppb progress=$125/100]` A fundraising-style progress bar that has exceeded the goal
+
+= option =
+
+This adds one of several supported options to the progress bar. For those that know CSS, new "options" can be added simply by adding new styles to your style.css. See the [Frequently Asked Questions](http://wordpress.org/support/plugin/progress-bar/faq/) page for more information on creating new CSS classes. Options can be combined by wrapping them in quotes in the shortcode. The progress bar will naturally have an inner shadow applied to it. The `flat` option was added to remove the shadow and display a "flat" color, best when used in conjunction with the `color` parameter.
+
+Supported values: candystripe, animated-candystripe, red, orange, green, yellow, flat
+
+*Examples*
+
+`[wppb progress=50 option=red]` Displays a red progress bar
+
+`[wppb progress=50 option="animated-candystripe green"]` Displays a green progress bar with an animated candystripe
+
+`[wppb progress=50 option="candystripe orange"]` Displays an orange progress bar with a static candystripe
+
+`[wppb progress=50 option=candystripe]` Displays a default progress bar (blue) with a static candystripe
+
+`[wppb progress=50 option=flat color=red]` Displays a red progress bar with no inner shadow or gradient
+
+`[wppb progress=50 option="flat candystripe" color=gray]` Displays a gray progress bar with no inner shadow or gradient and a static candystripe
+
+= percent =
+
+Displays the percentage (or fraction) either inside or outside the progress bar.
+*Note:* It is *not* recommended to use `percent=after` if you are displaying a progress bar that exceeds its goal.
+
+Supported values: inside, after
+
+*Examples*
+
+`[wppb progress=50 option=red percent=after]` Displays a red progress bar with the percent displayed to the right of the progress bar
+
+`[wppb progress=50 option="red candystripe" percent=inside]` Displays a red progress bar with a static candystripe and the percent displayed inside the progress bar.
+
+= fullwidth =
+
+Makes the progress bar take up 100% of the container. (Good for responsive layouts.) *Not* recommended for progress bars that exceed their goal.
+*Note:* `fullwidth` will actually take any value. If `fullwidth` is present at all, it will display a progress bar that is 100% wide. For example `fullwidth=foo` would output the same as `fullwidth=true`.
+
+Supported value: true
+
+*Examples*
+
+`[wppb progress=50 fullwidth=true]` Displays a full-width (responsive) progress bar
+
+`[wppb progress=50 fullwidth=foo]` Identical to the above progress bar
+
+= color =
+
+Defines a color for the progress bar. This is useful for creating new progress bar colors on the fly without having to edit CSS. Cannot be used in conjunction with any of the pre-existing color options (red, yellow, orange or green).
+
+Supported values: any hexadecimal color value, any rgb/rgba color value, any css-supported [color name](http://www.w3schools.com/cssref/css_colornames.asp)
+
+*Examples*
+
+`[wppb progress=50 color=rgb(123,50,87)]`
+
+`[wppb progress=55 color=rgba(123,64,99,0.3)]`
+*Note:* Since the background color for the progress bar is dark gray, any opacity applied to the rgba color will make the color darker, since it's adding to the dark gray background.
+
+`[wppb progress=22 color=#ff3257]`
+
+`[wppb progress=68 color=lightYellow]`
+
+= endcolor =
+
+Defines an end color for a custom gradient when used with **color**.
+
+Supported values: any hexadecimal color value, any rgb/rgba color value, any css-supported [color name](http://www.w3schools.com/cssref/css_colornames.asp)
+
+*Examples*
+
+`[wppb progress=72 color=turquoise endcolor=teal]`
+
+`[wppb progress=83 color=#ff2222 endcolor=#ff9984]`
+
+`[wppb progress=50 color=rgb(203,96,179) endcolor=rgb(173,18,131)]`
+
+= gradient =
+
+Determines an end-color on the fly for a gradient based on the **color** parameter. As such, **gradient** *requires* **color** to be present, otherwise the color and gradient will be set to the default color (blue). Cannot be used in conjunction with any of the pre-existing color options (red, yellow, orange or green). When using `gradient` the **color** value *must* be in hexadecimal form.
+
+Supported values: any positive or negative decimal value from 0.0 to 1.0 or -1.0.
+
+*Examples*
+
+`[wppb progress=22 color=#ff0000 gradient=0.2]` Displays a red progress bar that gets lighter at the bottom
+
+`[wppb progress=22 color=#ff0000 gradient=-0.2]` Displays a red progress bar that gets darker at the bottom
+
+**This does not work:**
+
+`[wppb progress=34 color=rgb(22,18,99) gradient=0.2]`
+
 == Changelog ==
+
+**1.1**
+
+* adds color parameter to define a color for the progress bar
+* adds brightness function to create custom gradients on the fly based on the start color with the gradient parameter
+* adds endcolor prameter to create custom gradients
+* updates readme file with full usage instructions
+* adds a flat option to display the progress bar with no inner shadow as suggested by Ciprian Popescu [here](http://wordpress.org/support/topic/iris-colour-picker-for-bar-color?replies=13#post-3729300)
+
+**1.0.5**
+
+* fixed undefined index notices
+* added support for dollar progress bars for fundraising or budget reports, e.g. $45 / $50
 
 **1.0.4**
 
