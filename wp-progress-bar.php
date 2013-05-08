@@ -3,7 +3,7 @@
 Plugin Name: Progress Bar
 Plugin URI: http://museumthemes.com/progress-bar/
 Description: a simple progress bar shortcode that can be styled with CSS
-Version: 1.2
+Version: 1.2.1
 Author: Chris Reynolds
 Author URI: http://museumthemes.com
 License: GPL3
@@ -130,6 +130,13 @@ function wppb( $atts ) {
 	if ( isset($atts['text']) ) {
 		$atts['text'] = strip_tags($atts['text']);
 	}
+	/**
+	 * if there's custom text and no location has been defined, make the location inside
+	 */
+	if ( isset($atts['text']) && !$location )
+		$location = 'inside';
+
+
 	/**
 	 * here's the html output of the progress bar
 	 */
