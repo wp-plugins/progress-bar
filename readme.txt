@@ -4,7 +4,7 @@ Donate link:https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id
 Tags: progress bar, css3, progress, shortcode
 Requires at least: 2.8
 Tested up to: 3.6
-Stable tag: 1.1
+Stable tag: 1.2
 
 a simple progress bar shortcode that can be styled with CSS
 
@@ -18,7 +18,7 @@ To add a progress bar to a post or a page, simply use this shortcode:
 
 where "50" in the example above is a progress bar that is 50% complete.  Simple, lightweight, cross-browser compatible (degrades nicely for browsers that don\'t support CSS3).
 
-For more examples and full descriptions of all the available options, click on the [options tab](http://wordpress.org/support/plugin/progress-bar/other_notes/).
+For more examples and full descriptions of all the available options, click on the [options tab](http://wordpress.org/extend/plugins/progress-bar/other_notes/).
 
 For demos of each of the options, go here: http://museumthemes.com/progress-bar/
 
@@ -113,6 +113,9 @@ Supported values: candystripe, animated-candystripe, red, orange, green, yellow,
 
 = percent =
 
+**(Deprecated)**
+This parameter is deprecated. Please use the **location** parameter instead.
+
 Displays the percentage (or fraction) either inside or outside the progress bar.
 *Note:* It is *not* recommended to use `percent=after` if you are displaying a progress bar that exceeds its goal.
 
@@ -123,6 +126,35 @@ Supported values: inside, after
 `[wppb progress=50 option=red percent=after]` Displays a red progress bar with the percent displayed to the right of the progress bar
 
 `[wppb progress=50 option="red candystripe" percent=inside]` Displays a red progress bar with a static candystripe and the percent displayed inside the progress bar.
+
+= location =
+
+Displays the percentage, text or fraction either inside or outside the progress bar.
+*Note:* It is *not* recommended to use `location=after` if you are displaying a progress bar that exceeds its goal.
+
+Supported values: inside, after
+
+*Examples*
+
+`[wppb progress=50 option=red location=after]` Displays a red progress bar with the progress displayed to the right of the progress bar.
+
+`[wppb progress=50 option="red candystripe" location=inside]` Displays a red progress bar with a static candystripe and the progress displayed inside the progress bar.
+
+`[wppb progress=85 location=after text="foo"]` Displays a progress bar with the text "foo" displayed after the progress bar.
+
+= text =
+
+Displays arbitrary text instead of the progress bar. Can be used with the **location** parameter to define whether the text appears inside or outside the progress bar (default is inside). *Must* be used inside double quotes. HTML code is stripped from the final output.
+
+Supported values: any plain text string
+
+*Examples*
+
+`[wppb progress=75 text="My awesome text"]` Displays "My awesome text" inside a 75% progress bar.
+
+`[wppb progress=85 location=after text="foo"]` Displays "foo" after an 85% progress bar
+
+`[wppb progress=85 location=inside text="hello!"]` Displays "hello!" inside an 85% progress bar (note, default location for text is inside, so it isn't required to specify "inside"),
 
 = fullwidth =
 
@@ -185,6 +217,14 @@ Supported values: any positive or negative decimal value from 0.0 to 1.0 or -1.0
 `[wppb progress=34 color=rgb(22,18,99) gradient=0.2]`
 
 == Changelog ==
+
+**1.2**
+
+* adds text parameter to display custom text (suggested by [itsonlybarney](http://profiles.wordpress.org/itsonlybarney/))
+* deprecated percent parameter
+* added (more accurate) location parameter to take the place of the percent parameter
+* added support for percent to migrate to location
+* strips html from text content
 
 **1.1**
 

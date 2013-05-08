@@ -3,7 +3,7 @@
 Plugin Name: Progress Bar
 Plugin URI: http://museumthemes.com/progress-bar/
 Description: a simple progress bar shortcode that can be styled with CSS
-Version: 1.1
+Version: 1.2
 Author: Chris Reynolds
 Author URI: http://museumthemes.com
 License: GPL3
@@ -75,12 +75,15 @@ function wppb( $atts ) {
 	extract( shortcode_atts( array(
 		'progress' => '',		// the progress in % or x/y
 		'option' => '',			// what options you want to use (candystripes, animated-candystripes, red)
-		'percent' => '',		// whether you want to display the percentage and where you want that to go (after, inside)
+		'percent' => '',		// whether you want to display the percentage and where you want that to go (after, inside) (deprecated)
+		'location' => '',		// replaces $percent
 		'fullwidth' => '',		// determines if the progress bar should be full width or not
 		'color' => '',			// this will set a static color value for the progress bar, or a starting point for the gradient
 		'gradient' => '',		// will set a positive or negative end result based on the color, e.g. gradient=1 will be 100% brighter, gradient=-0.2 will be 20% darker
-		'endcolor' => ''		// defines an end color for a custom gradient
+		'endcolor' => '',		// defines an end color for a custom gradient
+		'text' => ''			// allows you to define custom text instead of a percent.
 		), $atts ) );
+
 	$pos = strpos($progress, '/');
 	if($pos===false) {
 		$width = $progress . "%";
@@ -113,15 +116,34 @@ function wppb( $atts ) {
 		}
 	}
 	/**
+	 * if percent is set instead of location, set the location value to be the same as percent
+	 */
+	if ( isset($atts['percent']) && !isset($atts['location']) ) {
+		$location = $atts['percent'];
+	} elseif ( isset($atts['location']) ) {
+		$location = $atts['location'];
+	}
+
+	/**
+	 * sanitize any text content
+	 */
+	if ( isset($atts['text']) ) {
+		$atts['text'] = strip_tags($atts['text']);
+	}
+	/**
 	 * here's the html output of the progress bar
 	 */
-	$wppb_output	= "<div class=\"wppb-wrapper {$percent}"; // adding $percent to the wrapper class, so I can set a width for the wrapper based on whether it's using div.wppb-wrapper.after or div.wppb-wrapper.inside or just div.wppb-wrapper
+	$wppb_output	= "<div class=\"wppb-wrapper $location"; // adding $percent to the wrapper class, so I can set a width for the wrapper based on whether it's using div.wppb-wrapper.after or div.wppb-wrapper.inside or just div.wppb-wrapper
 	if (isset($atts['fullwidth'])) {
 		$wppb_output .= " full";
 	}
 	$wppb_output .= "\">";
-	if (isset($atts['percent'])) { // if $percent is not empty, add this
-		$wppb_output .= "<div class=\"{$percent}\">{$progress}</div>";
+	if ( $location && isset($atts['text'])) { // if $location is not empty and there's custom text, add this
+		$wppb_output .= "<div class=\"$location\">" . wp_kses($atts['text'], array()) . "</div>";
+	} elseif ( $location && !isset($atts['text']) ) { // if the $location is set but there's no custom text
+		$wppb_output .= "<div class=\"$location\">{$progress}</div>";
+	} elseif ( !$location && isset($atts['text']) ) { // if the location is not set, but there is custom text
+		$wppb_output .= "<div class=\"inside\">" . wp_kses($atts['text'], array()) . "</div>";
 	}
 	$wppb_output 	.= 	"<div class=\"wppb-progress";
 	if (isset($atts['fullwidth'])) {
