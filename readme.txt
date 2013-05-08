@@ -4,7 +4,7 @@ Donate link:https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id
 Tags: progress bar, css3, progress, shortcode
 Requires at least: 2.8
 Tested up to: 3.6
-Stable tag: 1.2
+Stable tag: 1.2.1
 
 a simple progress bar shortcode that can be styled with CSS
 
@@ -154,7 +154,7 @@ Supported values: any plain text string
 
 `[wppb progress=85 location=after text="foo"]` Displays "foo" after an 85% progress bar
 
-`[wppb progress=85 location=inside text="hello!"]` Displays "hello!" inside an 85% progress bar (note, default location for text is inside, so it isn't required to specify "inside"),
+`[wppb progress=85 location=inside text="hello!"]` Displays "hello!" inside an 85% progress bar (note, default location for text is inside, so it isn't required to specify "inside").
 
 = fullwidth =
 
@@ -217,6 +217,10 @@ Supported values: any positive or negative decimal value from 0.0 to 1.0 or -1.0
 `[wppb progress=34 color=rgb(22,18,99) gradient=0.2]`
 
 == Changelog ==
+
+**1.2.1**
+
+* fixes positioning of text if there is text and location isn't defined
 
 **1.2**
 
