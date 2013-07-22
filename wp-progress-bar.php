@@ -3,7 +3,7 @@
 Plugin Name: Progress Bar
 Plugin URI: http://museumthemes.com/progress-bar/
 Description: a simple progress bar shortcode that can be styled with CSS
-Version: 1.2.1
+Version: 2.0
 Author: Chris Reynolds
 Author URI: http://museumthemes.com
 License: GPL3
@@ -25,6 +25,9 @@ License: GPL3
 
     http://www.opensource.org/licenses/gpl-3.0.html
 */
+
+include ( plugin_dir_path( __FILE__ ) . 'wppb-widget.php' );
+include ( plugin_dir_path( __FILE__ ) . 'functions.php' );
 
 /**
  * wppb_init
@@ -68,6 +71,7 @@ add_action( 'init', 'wppb_init' );
  * @param string $gradient OPTIONAL @uses $color adds an end color that is the number of degrees offset from the $color parameter and uses it for a
  * gradient
  * $color parameter is REQUIRED for $gradient
+ * @uses wppb_check_pos
  * usage: [wppb progress=50 color=ff0000 gradient=.1]
  */
 
@@ -84,37 +88,10 @@ function wppb( $atts ) {
 		'text' => ''			// allows you to define custom text instead of a percent.
 		), $atts ) );
 
-	$pos = strpos($progress, '/');
-	if($pos===false) {
-		$width = $progress . "%";
-		$progress = $progress . " %";
-	} else {
-		$dollar = strpos($progress, '$');
-		if ( $dollar === false ) {
-			/**
-			 * this could be used for other currencies, potentially, though if it was, it should be changed into a case instead of an if statement
-			 */
-		} else {
-			/**
-			 * if there's a progress bar in the progress, it will break the math
-			 * let's strip it out so we can add it back later
-			 */
-			$progress = str_replace('$', '', $progress);
-		}
-		$xofy = explode('/',$progress);
-		if (!$xofy[1])
-			$xofy[1] = 100;
-		$percentage = $xofy[0] / $xofy[1] * 100;
-		$width = $percentage . "%";
-		if ( $dollar === false ) {
-			$progress = $xofy[0] . " / " . $xofy[1];
-		} else {
-			/**
-			 * if there's a dollar sign in the progress, display it manually
-			 */
-			$progress = '$' . $xofy[0] . ' / $' . $xofy[1];
-		}
-	}
+	$wppb_check_results = wppb_check_pos($progress); // check the progress for a slash, indicating a fraction instead of a percent
+	$percent = $wppb_check_results[0];
+	$width = $wppb_check_results[1];
+
 	/**
 	 * if percent is set instead of location, set the location value to be the same as percent
 	 */
@@ -125,118 +102,38 @@ function wppb( $atts ) {
 	}
 
 	/**
-	 * sanitize any text content
-	 */
-	if ( isset($atts['text']) ) {
-		$atts['text'] = strip_tags($atts['text']);
-	}
-	/**
 	 * if there's custom text and no location has been defined, make the location inside
 	 */
-	if ( isset($atts['text']) && !$location )
+	if ( $text && !$location )
 		$location = 'inside';
 
 
 	/**
-	 * here's the html output of the progress bar
+	 * sanitize any text content
 	 */
-	$wppb_output	= "<div class=\"wppb-wrapper $location"; // adding $percent to the wrapper class, so I can set a width for the wrapper based on whether it's using div.wppb-wrapper.after or div.wppb-wrapper.inside or just div.wppb-wrapper
-	if (isset($atts['fullwidth'])) {
-		$wppb_output .= " full";
+	if ( isset($atts['text']) ) {
+		$text = strip_tags($atts['text']);
 	}
-	$wppb_output .= "\">";
-	if ( $location && isset($atts['text'])) { // if $location is not empty and there's custom text, add this
-		$wppb_output .= "<div class=\"$location\">" . wp_kses($atts['text'], array()) . "</div>";
-	} elseif ( $location && !isset($atts['text']) ) { // if the $location is set but there's no custom text
-		$wppb_output .= "<div class=\"$location\">{$progress}</div>";
-	} elseif ( !$location && isset($atts['text']) ) { // if the location is not set, but there is custom text
-		$wppb_output .= "<div class=\"inside\">" . wp_kses($atts['text'], array()) . "</div>";
-	}
-	$wppb_output 	.= 	"<div class=\"wppb-progress";
-	if (isset($atts['fullwidth'])) {
-		$wppb_output .= " full";
-	}
-	$wppb_output 	.= "\">";
-	$wppb_output	.= "<span";
-	if (isset($atts['option'])) {
-		$wppb_output .= " class=\"{$option}\"";
-	}
-	if (isset($atts['color'])) { // if color is set
-		$wppb_output .= " style=\"width: {$width}; background: {$color};";
-		if (isset($atts['endcolor'])) {
-			$gradient_end = $atts['endcolor'];
-			$wppb_output .= "background: -moz-linear-gradient(top, {$color} 0%, $gradient_end 100%); background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,{$color}), color-stop(100%,$gradient_end)); background: -webkit-linear-gradient(top, {$color} 0%,$gradient_end 100%); background: -o-linear-gradient(top, {$color} 0%,$gradient_end 100%); background: -ms-linear-gradient(top, {$gradient} 0%,$gradient_end 100%); background: linear-gradient(top, {$color} 0%,$gradient_end 100%); \"";
-		}
-	} else {
-		$wppb_output .= " style=\"width: {$width};";
-	}
-	if (isset($atts['gradient']) && isset($atts['color'])) { // if a color AND gradient is set (gradient won't work without the starting color)
-		$gradient_end = wppb_brightness($atts['color'],$atts['gradient']);
-		$wppb_output .= "background: -moz-linear-gradient(top, {$color} 0%, $gradient_end 100%); background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,{$color}), color-stop(100%,$gradient_end)); background: -webkit-linear-gradient(top, {$color} 0%,$gradient_end 100%); background: -o-linear-gradient(top, {$color} 0%,$gradient_end 100%); background: -ms-linear-gradient(top, {$gradient} 0%,$gradient_end 100%); background: linear-gradient(top, {$color} 0%,$gradient_end 100%); \"";
-	} else {
-		$wppb_output .= "\"";
-	}
-	$wppb_output	.= "><span></span></span>";
-	$wppb_output	.=	"</div>";
-	$wppb_output	.= "</div>";
+
 	/**
-	 * now return the progress bar
+	 * figure out gradient stuff
 	 */
+	$gradient_end = null;
+	if ( isset($atts['endcolor']) ) {
+		$gradient_end = $atts['endcolor'];
+	}
+	if ( isset( $atts['gradient'] ) && isset( $atts['color'] ) ) { // if a color AND gradient is set (gradient won't work without the starting color)
+		$gradient_end = wppb_brightness( $atts['color'] , $atts['gradient'] );
+	}
+
+	if ( isset($atts['fullwidth']) )
+		$fullwidth = true;
+
+	$progress = $wppb_check_results[0];
+	/**
+	 * get the progress bar
+	 */
+	$wppb_output = wppb_get_progress_bar($location, $text, $progress, $option, $width, $fullwidth, $color, $gradient, $gradient_end);
 	return $wppb_output;
 }
 add_shortcode('wppb','wppb');
-
-/**
- * Brightness
- * calculates a brighter or darker color based on the hex value given
- * @since 1.1
- * @link http://lab.clearpixel.com.au/2008/06/darken-or-lighten-colours-dynamically-using-php/
- * @param string $hex REQUIRED the hex color value
- * @param string $percent REQUIRED how much the offset should be
- * usage: wppb_brightness('ff0000','0.2')
- */
-function wppb_brightness($hex, $percent) {
-	/**
-	 * Work out if hash given
-	 */
-	$hash = '';
-	if (stristr($hex,'#')) {
-		$hex = str_replace('#','',$hex);
-		$hash = '#';
-	}
-	/**
-	 * HEX TO RGB
-	 */
-	$rgb = array(hexdec(substr($hex,0,2)), hexdec(substr($hex,2,2)), hexdec(substr($hex,4,2)));
-	//// CALCULATE
-	for ($i=0; $i<3; $i++) {
-		// See if brighter or darker
-		if ($percent > 0) {
-			// Lighter
-			$rgb[$i] = round($rgb[$i] * $percent) + round(255 * (1-$percent));
-		} else {
-			// Darker
-			$positivePercent = $percent - ($percent*2);
-			$rgb[$i] = round($rgb[$i] * $positivePercent);// + round(0 * (1-$positivePercent));
-		}
-		// In case rounding up causes us to go to 256
-		if ($rgb[$i] > 255) {
-			$rgb[$i] = 255;
-		}
-	}
-	/**
-	 * RBG to Hex
-	 */
-	$hex = '';
-	for($i=0; $i < 3; $i++) {
-		// Convert the decimal digit to hex
-		$hexDigit = dechex($rgb[$i]);
-		// Add a leading zero if necessary
-		if(strlen($hexDigit) == 1) {
-		$hexDigit = "0" . $hexDigit;
-		}
-		// Append to the hex string
-		$hex .= $hexDigit;
-	}
-	return $hash.$hex;
-}
