@@ -3,7 +3,7 @@
  * WPPB Widget
  * allows the progress bar to be added to a configurable widget
  * @author Chris Reynolds
- * @since 2.0
+ * @since 2.0.1
  * @uses WP_Widget
  */
 function wppb_register_widget() {
@@ -27,6 +27,7 @@ class WPPB_Widget extends WP_Widget {
 		if ( isset( $instance['candystripe'] ) ) { $candystripe = $instance['candystripe']; } else { $candystripe = false; }
 		if ( isset( $instance['location'] ) ) { $location = $instance['location']; } else { $location = ''; }
 		if ( isset( $instance['text'] ) ) { $text = $instance['text']; } else { $text = ''; }
+		if ( isset( $instance['description'] ) ) { $description = $instance['description']; } else { $text = ''; }
 
 		echo $args['before_widget'];
 
@@ -49,13 +50,14 @@ class WPPB_Widget extends WP_Widget {
 		$progress = $percent;
 		$the_progress_bar = wppb_get_progress_bar($location, $text, $progress, $option, $width, 'true');
 		echo $the_progress_bar;
+		echo wpautop(wp_kses_post( $description ));
 
 		echo $args['after_widget'];
 
 	}
 
 	public function form( $instance ) {
-		$defaults = array( 'title' => '', 'progress' => '', 'color' => 'blue', 'candystripe' => 'none', 'location' => 'none', 'text' => '' );
+		$defaults = array( 'title' => '', 'progress' => '', 'color' => 'blue', 'candystripe' => 'none', 'location' => 'none', 'text' => '', 'description' => '' );
 		$instance = wp_parse_args((array) $instance, $defaults);
 
 		if ( isset( $instance['title'] ) ) { $title = apply_filters( 'widget_title', $instance['title'] ); } else { $title = ''; }
@@ -64,6 +66,7 @@ class WPPB_Widget extends WP_Widget {
 		if ( isset( $instance['candystripe'] ) ) { $candystripe = $instance['candystripe']; } else { $candystripe = false; } // a radio button
 		if ( isset( $instance['location'] ) ) { $location = $instance['location']; } else { $location = ''; } // a dropdown
 		if ( isset( $instance['text'] ) ) { $text = $instance['text']; } else { $text = ''; }
+		if ( isset( $instance['description'] ) ) { $description = $instance['description']; } else { $description = ''; }
 		?>
 		<p>
 			<label for="<?php echo $this->get_field_name('title'); ?>"><strong><?php _e( 'Title', 'wp-progress-bar' ); ?></strong></label>
@@ -146,6 +149,11 @@ class WPPB_Widget extends WP_Widget {
 			<input class="widefat" id="<?php echo $this->get_field_id('text'); ?>" name="<?php echo $this->get_field_name('text'); ?>" type="text" value="<?php esc_attr_e($text); ?>" /><br />
 			<span class="description"><?php _e( 'Custom text to display (instead of the progress value). (optional).', 'wp-progress-bar' ); ?></span>
 		</p>
+		<p>
+			<label for="<?php echo $this->get_field_name('description'); ?>"><strong><?php _e( 'Description', 'wp-progress-bar' ); ?></strong></label>
+			<textarea class="widefat" id="<?php echo $this->get_field_id('description'); ?>" name="<?php echo $this->get_field_name('description'); ?>"><?php esc_attr_e($description); ?></textarea><br />
+			<span class="description"><?php _e( 'A block of text that displays under the progress bar to describe what the progress bar is for. (optional).', 'wp-progress-bar' ); ?></span>
+		</p>
 		<?php
 	}
 
@@ -158,6 +166,7 @@ class WPPB_Widget extends WP_Widget {
 		$instance['candystripe'] = ( !empty( $new_instance['candystripe'] ) ) ? strip_tags( $new_instance['candystripe'] ) : '';
 		$instance['location'] = ( !empty( $new_instance['location'] ) ) ? strip_tags( $new_instance['location'] ) : '';
 		$instance['text'] = ( !empty( $new_instance['text'] ) ) ? wp_kses_post( $new_instance['text'] ) : '';
+		$instance['description'] = ( !empty( $new_instance['description'] ) ) ? wp_kses_post( $new_instance['description'] ) : '';
 
 		return $instance;
 	}
