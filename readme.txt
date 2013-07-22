@@ -218,7 +218,7 @@ Supported values: any positive or negative decimal value from 0.0 to 1.0 or -1.0
 
 == Changelog ==
 
-** 2.0 **
+**2.0**
 
 * added progress bar sidebar widget
 
