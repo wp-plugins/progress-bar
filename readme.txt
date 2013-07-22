@@ -4,7 +4,7 @@ Donate link:https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id
 Tags: progress bar, css3, progress, shortcode
 Requires at least: 2.8
 Tested up to: 3.6
-Stable tag: 2.0
+Stable tag: 2.0.1
 
 a simple progress bar shortcode that can be styled with CSS
 
@@ -218,9 +218,14 @@ Supported values: any positive or negative decimal value from 0.0 to 1.0 or -1.0
 
 == Changelog ==
 
+**2.0.1**
+
+* added a description area for sidebar widget
+
 **2.0**
 
 * added progress bar sidebar widget
+* some minor css fixes
 
 **1.2.1**
 
