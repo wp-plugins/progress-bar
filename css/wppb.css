@@ -128,7 +128,7 @@ div.wppb-progress > span.candystripes:after, div.wppb-progress > span.candystrip
 	      color-stop(.5, rgba(255, 255, 255, .2)),
 	      color-stop(.75, rgba(255, 255, 255, .2)),
 	      color-stop(.75, transparent), to(transparent)
-	   );
+	   )!important;
 	background-image:
 		-webkit-linear-gradient(
 		  -45deg,
@@ -139,7 +139,7 @@ div.wppb-progress > span.candystripes:after, div.wppb-progress > span.candystrip
 	      rgba(255, 255, 255, .2) 75%,
 	      transparent 75%,
 	      transparent
-	   );
+	   )!important;
 	background-image:
 		-moz-linear-gradient(
 		  -45deg,
@@ -150,7 +150,7 @@ div.wppb-progress > span.candystripes:after, div.wppb-progress > span.candystrip
 	      rgba(255, 255, 255, .2) 75%,
 	      transparent 75%,
 	      transparent
-	   );
+	   )!important;
 	background-image:
 		-ms-linear-gradient(
 		  -45deg,
@@ -161,7 +161,7 @@ div.wppb-progress > span.candystripes:after, div.wppb-progress > span.candystrip
 	      rgba(255, 255, 255, .2) 75%,
 	      transparent 75%,
 	      transparent
-	   );
+	   )!important;
 	background-image:
 		-o-linear-gradient(
 		  -45deg,
@@ -172,7 +172,7 @@ div.wppb-progress > span.candystripes:after, div.wppb-progress > span.candystrip
 	      rgba(255, 255, 255, .2) 75%,
 	      transparent 75%,
 	      transparent
-	   );
+	   )!important;
 	z-index: 1;
 	-webkit-background-size: 50px 50px;
 	-moz-background-size: 50px 50px;

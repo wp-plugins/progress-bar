@@ -3,8 +3,8 @@ Contributors: jazzs3quence
 Donate link:https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=AWM2TG
 Tags: progress bar, css3, progress, shortcode
 Requires at least: 2.8
-Tested up to: 3.6.1
-Stable tag: 2.1
+Tested up to: 3.8.1
+Stable tag: 2.1.1
 
 a simple progress bar shortcode that can be styled with CSS
 
@@ -218,7 +218,11 @@ Supported values: any positive or negative decimal value from 0.0 to 1.0 or -1.0
 
 == Changelog ==
 
-** 2.1 **
+**2.1.1**
+
+* allowed candystriping to apply to custom colors
+
+**2.1**
 
 * fixed an issue where wppb_animate.js was breaking the responsiveness of the fullwidth option. Resolved by not using the animation when fullwidth is being used.
 * added number formatting on fraction-based output. ultimately resolves an issue where a comma in the number breaks the formatting. Numbers larger than 1,000 need to be entered in with no comma (e.g. 1000), but will output with the correct number i18n (e.g. 1,000).
