@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Progress Bar
-Plugin URI: http://museumthemes.com/progress-bar/
+Plugin URI: https://github.com/jazzsequence/progress-bar
 Description: a simple progress bar shortcode that can be styled with CSS
-Version: 2.1.1
+Version: 2.1.2
 Author: Chris Reynolds
-Author URI: http://museumthemes.com
+Author URI: https://jazzsequence.com/progress-bar/
 License: GPL3
 */
 
